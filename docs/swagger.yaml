@@ -1,0 +1,209 @@
+openapi: 3.0.0
+info:
+  title: Recommendation System API
+  description: API for a movie recommendation system based on user interactions.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+paths:
+  /api/v1/genres:
+    get:
+      summary: Get all genres
+      responses:
+        200:
+          description: List of available genres
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: ["Action", "Comedy", "Drama", "Romance"]
+  
+  /api/v1/interactions/{userId}:
+    get:
+      summary: Get all interactions of a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: eventType
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ["view", "rating"]
+            description: "Filter by event type: 'view' or 'rating'."
+      responses:
+        200:
+          description: List of interactions for the user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    movieId:
+                      type: integer
+                    eventType:
+                      type: string
+                    value:
+                      type: integer
+                    view_percentage:
+                      type: integer
+                      description: View percentage if applicable.
+  
+    post:
+      summary: Add an interaction for the user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                movieId:
+                  type: integer
+                rating:
+                  type: integer
+                  description: User's rating (1 to 5)
+                view_percentage:
+                  type: integer
+                  description: View percentage of the movie.
+      responses:
+        201:
+          description: Interaction successfully added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Interaction successfully added."
+  
+  /api/v1/movies:
+    get:
+      summary: Get a list of movies
+      parameters:
+        - name: genres
+          in: query
+          required: false
+          schema:
+            type: string
+            description: Comma-separated list of genres
+        - name: minRating
+          in: query
+          required: false
+          schema:
+            type: integer
+            description: Filter movies with an average rating above a certain value
+        - name: maxRating
+          in: query
+          required: false
+          schema:
+            type: integer
+            description: Filter movies with an average rating below a certain value
+      responses:
+        200:
+          description: Filtered list of movies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    movieId:
+                      type: integer
+                    title:
+                      type: string
+                    genres:
+                      type: string
+  
+  /api/v1/movies/search:
+    get:
+      summary: Search for movies by title and genres
+      parameters:
+        - name: title
+          in: query
+          required: false
+          schema:
+            type: string
+            description: Movie title to search for
+        - name: genres
+          in: query
+          required: false
+          schema:
+            type: string
+            description: Comma-separated list of genres to search for
+      responses:
+        200:
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    movieId:
+                      type: integer
+                    title:
+                      type: string
+                    genres:
+                      type: string
+  
+  /api/v1/users:
+    get:
+      summary: Get all users
+      responses:
+        200:
+          description: List of all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    userId:
+                      type: integer
+                    username:
+                      type: string
+  
+  /api/v1/users/{userId}/recommendations:
+    get:
+      summary: Get recommended movies for the user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: List of recommended movies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    movieId:
+                      type: integer
+                    title:
+                      type: string
+                    genres:
+                      type: string

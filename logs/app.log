@@ -1,0 +1,50 @@
+2024-12-15T22:39:08.697+01:00  INFO 22569 --- [recommendation] [main] c.p.r.RecommendationApplication          : Starting RecommendationApplication using Java 21.0.5 with PID 22569 (/Users/pierlucalippi/JavaProjects/recommendation/build/classes/java/main started by pierlucalippi in /Users/pierlucalippi/JavaProjects/recommendation)
+2024-12-15T22:39:08.698+01:00  INFO 22569 --- [recommendation] [main] c.p.r.RecommendationApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-12-15T22:39:08.915+01:00  INFO 22569 --- [recommendation] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-15T22:39:08.938+01:00  INFO 22569 --- [recommendation] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 4 JPA repository interfaces.
+2024-12-15T22:39:09.106+01:00  INFO 22569 --- [recommendation] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-12-15T22:39:09.112+01:00  INFO 22569 --- [recommendation] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-15T22:39:09.112+01:00  INFO 22569 --- [recommendation] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2024-12-15T22:39:09.131+01:00  INFO 22569 --- [recommendation] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-15T22:39:09.131+01:00  INFO 22569 --- [recommendation] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 419 ms
+2024-12-15T22:39:09.180+01:00  INFO 22569 --- [recommendation] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-15T22:39:09.198+01:00  INFO 22569 --- [recommendation] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.2.Final
+2024-12-15T22:39:09.207+01:00  INFO 22569 --- [recommendation] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-12-15T22:39:09.290+01:00  INFO 22569 --- [recommendation] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-15T22:39:09.300+01:00  INFO 22569 --- [recommendation] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-15T22:39:09.524+01:00  INFO 22569 --- [recommendation] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@621624b1
+2024-12-15T22:39:09.525+01:00  INFO 22569 --- [recommendation] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-15T22:39:09.540+01:00  INFO 22569 --- [recommendation] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 3.47
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2024-12-15T22:39:09.825+01:00  INFO 22569 --- [recommendation] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-15T22:39:09.829+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : drop table if exists genre
+2024-12-15T22:39:09.830+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : drop table if exists interaction
+2024-12-15T22:39:09.830+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : drop table if exists movie
+2024-12-15T22:39:09.831+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : drop table if exists movie_genre
+2024-12-15T22:39:09.831+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : drop table if exists user
+2024-12-15T22:39:09.832+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : create table genre (genre_id varchar(255) not null, name varchar(255) not null unique, primary key (genre_id))
+2024-12-15T22:39:09.833+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : create table interaction (rating integer check ((rating<=5) and (rating>=1)), view_percentage integer check ((view_percentage<=100) and (view_percentage>=0)), interaction_id integer, movie_id bigint, user_id bigint, primary key (interaction_id))
+2024-12-15T22:39:09.833+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : create table movie (movie_id integer, title varchar(255) not null, primary key (movie_id))
+2024-12-15T22:39:09.834+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : create table movie_genre (movie_id bigint not null, genre_id varchar(255) not null)
+2024-12-15T22:39:09.834+01:00 DEBUG 22569 --- [recommendation] [main] org.hibernate.SQL                        : create table user (user_id integer, username varchar(255) not null, primary key (user_id))
+2024-12-15T22:39:09.835+01:00  INFO 22569 --- [recommendation] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-15T22:39:09.955+01:00  INFO 22569 --- [recommendation] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-12-15T22:39:10.374+01:00  WARN 22569 --- [recommendation] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-15T22:39:10.493+01:00  INFO 22569 --- [recommendation] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-12-15T22:39:10.497+01:00  INFO 22569 --- [recommendation] [main] c.p.r.RecommendationApplication          : Started RecommendationApplication in 1.951 seconds (process running for 2.076)
+2024-12-15T22:39:16.305+01:00  INFO 22569 --- [recommendation] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2024-12-15T22:39:16.323+01:00  INFO 22569 --- [recommendation] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2024-12-15T22:39:16.327+01:00  INFO 22569 --- [recommendation] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-15T22:39:16.328+01:00 DEBUG 22569 --- [recommendation] [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table if exists genre
+2024-12-15T22:39:16.329+01:00 DEBUG 22569 --- [recommendation] [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table if exists interaction
+2024-12-15T22:39:16.330+01:00 DEBUG 22569 --- [recommendation] [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table if exists movie
+2024-12-15T22:39:16.330+01:00 DEBUG 22569 --- [recommendation] [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table if exists movie_genre
+2024-12-15T22:39:16.331+01:00 DEBUG 22569 --- [recommendation] [SpringApplicationShutdownHook] org.hibernate.SQL                        : drop table if exists user
+2024-12-15T22:39:16.332+01:00  INFO 22569 --- [recommendation] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-15T22:39:16.333+01:00  INFO 22569 --- [recommendation] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
