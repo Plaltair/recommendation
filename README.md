@@ -47,7 +47,7 @@ This will start the Spring Boot application locally at http://localhost:8080
 
 The API documentation is available through the Swagger file located at:
 
-	•	[/docs/swagger.yaml](https://ciao.com)
+	•	/docs/swagger.yaml
 
 This file contains the full API specification, including all available endpoints and their details.
 
